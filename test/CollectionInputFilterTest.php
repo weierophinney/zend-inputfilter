@@ -15,7 +15,6 @@ use PHPUnit_Framework_TestCase as TestCase;
 use stdClass;
 use Zend\InputFilter\BaseInputFilter;
 use Zend\InputFilter\CollectionInputFilter;
-use Zend\InputFilter\Exception\RuntimeException;
 use Zend\InputFilter\Input;
 use Zend\InputFilter\InputFilter;
 
@@ -170,7 +169,7 @@ class CollectionInputFilterTest extends TestCase
 
         // @codingStandardsIgnoreStart
         $dataSets = array(
-            // Description => array($required, $count, $data, $inputFilter, $expectedRaw, $expecteValues, $expectedValid, $expectedMessages)
+            // Description => [$required, $count, $data, $inputFilter, $expectedRaw, $expecteValues, $expectedValid, $expectedMessages]
             'Required: T, Count: N, Valid: T'       => array( $isRequired, null, $colRaw, $validIF  , $colRaw, $colFiltered, true , array()),
             'Required: T, Count: N, Valid: F'       => array( $isRequired, null, $colRaw, $invalidIF, $colRaw, $colFiltered, false, $colMessages),
             'Required: T, Count: +1, Valid: F'      => array( $isRequired,    2, $colRaw, $invalidIF, $colRaw, $colFiltered, false, $colMessages),
@@ -334,7 +333,7 @@ class CollectionInputFilterTest extends TestCase
 
         // @codingStandardsIgnoreStart
         return array(
-            // Description => array($count, $data, $expectedCount)
+            // Description => [$count, $data, $expectedCount]
             'C:   -1, D: null' => array(  -1, null  ,  0),
             'C:    0, D: null' => array(   0, null  ,  0),
             'C:    1, D: null' => array(   1, null  ,  1),

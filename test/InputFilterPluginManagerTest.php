@@ -10,17 +10,11 @@
 namespace ZendTest\InputFilter;
 
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
-use Zend\Filter\FilterPluginManager;
-use Zend\InputFilter\CollectionInputFilter;
-use Zend\InputFilter\Exception\RuntimeException;
 use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterInterface;
 use Zend\InputFilter\InputFilterPluginManager;
 use Zend\InputFilter\InputInterface;
-use Zend\ServiceManager\AbstractPluginManager;
 use Zend\ServiceManager\ServiceLocatorInterface;
-use Zend\Stdlib\InitializableInterface;
-use Zend\Validator\ValidatorPluginManager;
 
 /**
  * @covers Zend\InputFilter\InputFilterPluginManager
@@ -49,7 +43,6 @@ class InputFilterPluginManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testRegisteringInvalidElementRaisesException()
     {
-        $this->setExpectedException('Zend\InputFilter\Exception\RuntimeException');
         $this->setExpectedException(
             'Zend\InputFilter\Exception\RuntimeException',
             'must implement Zend\InputFilter\InputFilterInterface or Zend\InputFilter\InputInterface'
@@ -67,7 +60,7 @@ class InputFilterPluginManagerTest extends \PHPUnit_Framework_TestCase
     public function defaultInvokableClassesProvider()
     {
         return array(
-            // Description => array($alias, $expectedInstance)
+            // Description => [$alias, $expectedInstance]
             'inputfilter' => array('inputfilter', 'Zend\InputFilter\InputFilter'),
             'collection' => array('collection', 'Zend\InputFilter\CollectionInputFilter'),
         );

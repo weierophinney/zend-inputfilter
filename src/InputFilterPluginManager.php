@@ -85,8 +85,8 @@ class InputFilterPluginManager extends AbstractPluginManager
         throw new Exception\RuntimeException(sprintf(
             'Plugin of type %s is invalid; must implement %s or %s',
             (is_object($plugin) ? get_class($plugin) : gettype($plugin)),
-            __NAMESPACE__ . '\InputFilterInterface',
-            __NAMESPACE__ . '\InputInterface'
+            'Zend\InputFilter\InputFilterInterface',
+            'Zend\InputFilter\InputInterface'
         ));
     }
 }

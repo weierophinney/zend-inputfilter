@@ -223,7 +223,7 @@ class Factory
                         throw new Exception\RuntimeException(sprintf(
                             '%s "continue_if_empty" can only set to inputs of type "%s"',
                             __METHOD__,
-                            __NAMESPACE__ . '\Input'
+                            'Zend\InputFilter\Input'
                         ));
                     }
                     $input->setContinueIfEmpty($inputSpecification['continue_if_empty']);
@@ -236,7 +236,7 @@ class Factory
                         throw new Exception\RuntimeException(sprintf(
                             '%s "fallback_value" can only set to inputs of type "%s"',
                             __METHOD__,
-                            __NAMESPACE__ . '\Input'
+                            'Zend\InputFilter\Input'
                         ));
                     }
                     $input->setFallbackValue($value);
