@@ -698,7 +698,7 @@ class InputTest extends TestCase
     public function mixedValueProvider()
     {
         return array(
-            // Description => array($value)
+            // Description => [$value]
             '"0"' => array(
                 'raw' => '0',
                 'filtered' => '0',

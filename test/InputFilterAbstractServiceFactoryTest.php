@@ -15,6 +15,7 @@ use Zend\Filter\FilterPluginManager;
 use Zend\InputFilter\InputFilterAbstractServiceFactory;
 use Zend\InputFilter\InputFilterPluginManager;
 use Zend\ServiceManager\ServiceManager;
+use Zend\Validator\ValidatorInterface;
 use Zend\Validator\ValidatorPluginManager;
 
 /**

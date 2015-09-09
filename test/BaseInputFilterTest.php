@@ -15,12 +15,11 @@ use FilterIterator;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase as TestCase;
 use stdClass;
+use Zend\InputFilter\ArrayInput;
 use Zend\InputFilter\BaseInputFilter;
-use Zend\InputFilter\Exception\InvalidArgumentException;
-use Zend\InputFilter\Exception\RuntimeException;
 use Zend\InputFilter\Input;
-use Zend\InputFilter\InputInterface;
 use Zend\InputFilter\InputFilterInterface;
+use Zend\InputFilter\InputInterface;
 
 /**
  * @covers Zend\InputFilter\BaseInputFilter
@@ -488,7 +487,6 @@ class BaseInputFilterTest extends TestCase
 
         $filter->setData($data);
 
-        $this->assertTrue($filter->isValid(), json_encode($filter->getMessages()));
         $this->assertTrue(
             $filter->isValid(),
             'isValid() value not match. Detail . ' . json_encode($filter->getMessages())

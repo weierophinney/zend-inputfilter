@@ -10,7 +10,6 @@
 namespace ZendTest\InputFilter;
 
 use Zend\InputFilter\ArrayInput;
-use Zend\InputFilter\Exception\InvalidArgumentException;
 
 /**
  * @covers Zend\InputFilter\ArrayInput

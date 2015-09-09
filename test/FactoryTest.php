@@ -12,12 +12,13 @@ namespace ZendTest\InputFilter;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use PHPUnit_Framework_TestCase as TestCase;
 use Zend\Filter;
-use Zend\InputFilter\Exception\InvalidArgumentException;
-use Zend\InputFilter\Exception\RuntimeException;
+use Zend\InputFilter\CollectionInputFilter;
 use Zend\InputFilter\Factory;
 use Zend\InputFilter\Input;
 use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterPluginManager;
+use Zend\InputFilter\InputFilterProviderInterface;
+use Zend\InputFilter\InputProviderInterface;
 use Zend\ServiceManager;
 use Zend\Validator;
 
@@ -335,6 +336,9 @@ class FactoryTest extends TestCase
         $this->assertSame($validatorPlugins, $inputValidatorChain->getPluginManager());
     }
 
+    /**
+     * @requires extension mbstring
+     */
     public function testFactoryWillCreateInputWithSuggestedFilters()
     {
         $factory      = $this->createDefaultFactory();
@@ -676,6 +680,9 @@ class FactoryTest extends TestCase
         $this->assertEquals('My custom error message', $input->getErrorMessage());
     }
 
+    /**
+     * @requires extension mbstring
+     */
     public function testFactoryWillNotGetPrioritySetting()
     {
         //Reminder: Priority at which to enqueue filter; defaults to 1000 (higher executes earlier)
@@ -876,6 +883,36 @@ class FactoryTest extends TestCase
         $inputFilter = $factory->createInputFilter($provider);
 
         $this->assertInstanceOf('Zend\InputFilter\InputFilterInterface', $inputFilter);
+    }
+
+    public function testSuggestedTypeMayBePluginNameInInputFilterPluginManager()
+    {
+        $factory = $this->createDefaultFactory();
+        $pluginManager = new InputFilterPluginManager();
+        $pluginManager->setService('bar', new Input('bar'));
+        $factory->setInputFilterManager($pluginManager);
+
+        $input = $factory->createInput(array(
+            'type' => 'bar'
+        ));
+        $this->assertSame('bar', $input->getName());
+    }
+
+    public function testInputFromPluginManagerMayBeFurtherConfiguredWithSpec()
+    {
+        $factory = $this->createDefaultFactory();
+        $pluginManager = new InputFilterPluginManager();
+        $pluginManager->setService('bar', $barInput = new Input('bar'));
+        $this->assertTrue($barInput->isRequired());
+        $factory->setInputFilterManager($pluginManager);
+
+        $input = $factory->createInput(array(
+            'type' => 'bar',
+            'required' => false
+        ));
+
+        $this->assertFalse($input->isRequired());
+        $this->assertSame('bar', $input->getName());
     }
 
     /**
